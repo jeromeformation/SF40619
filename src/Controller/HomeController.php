@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
@@ -14,5 +15,14 @@ class HomeController extends AbstractController
     {
         //return new Response('<html><body>Bonjour ! </body></html>');
         return $this->render('index.html.twig');
+    }
+
+    /**
+     * @Route("/contact")
+     * @return Response
+     */
+    public function contact(): Response
+    {
+        return $this->render('contact.html.twig');
     }
 }
