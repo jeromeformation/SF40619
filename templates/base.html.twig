@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fr-FR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+    {% endblock %}
+</head>
+<body>
+    {% block navbar %}
+        {% include 'inc/navbar.html.twig' %}
+    {% endblock %}
+    <main class="container">
+        {#% for flash in session.flashes %}
+            <div class="alert alert-{{ flash.type }} alert-dismissible fade show" role="alert">
+                <strong>{{ flash.message }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %#}
+        {% block body %}{% endblock %}
+    </main>
+    {% block footer %}Footer{% endblock %}
+
+    {% block javascripts %}
+        <script src="/js/jquery-3.4.1.min.js"></script>
+        <script src="/js/bootstrap.bundle.min.js"></script>
+    {% endblock %}
+</body>
+</html>
