@@ -10,4 +10,4 @@ app_product_show:
     controller: App\Controller\ProductController::show
     requirements:
         slug: '[a-z0-9\-]+'
-    methods: ['GET', 'POST']
+    methods: ['GET']
