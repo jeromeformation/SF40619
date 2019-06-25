@@ -18,7 +18,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/contact")
+     * @Route("/contact", name="app_contact")
      * @return Response
      */
     public function contact(): Response

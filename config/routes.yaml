@@ -4,3 +4,10 @@
 app_homepage:
     path: /
     controller: App\Controller\HomeController::index
+
+app_product_show:
+    path: /produit/{slug}
+    controller: App\Controller\ProductController::show
+    requirements:
+        slug: '[a-z0-9\-]+'
+    methods: ['GET', 'POST']
