@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,18 +39,27 @@ class ProductController extends AbstractController
      */
     public function create(Request $requestHTTP): Response
     {
+        // Récupération d'une catégorie
+        $category = $this->getDoctrine()
+            ->getRepository(Category::class)
+            ->find(1)
+        ;
+
         // Création et remplissage du produit
         $product = new Product();
         $product
-            ->setName('Ventilateur')
+            ->setName('Ventilateur d\'été2')
             ->setDescription('Pour faire du froid')
             ->setImageName('ventilo.jpg')
             ->setIsPublished(true)
             ->setPrice(15.99)
+            ->setCategory($category)
         ;
 
-        dd($product);
-        // On sauvegarde la produit en BDD grâce au manager
+        // On sauvegarde le produit en BDD grâce au manager
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($product);
+        $manager->flush();
 
         return $this->render('product/create.html.twig');
     }
