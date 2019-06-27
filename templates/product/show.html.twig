@@ -3,11 +3,21 @@
 {% block body %}
     <h1>
         {{ product.name }}
-        <small>
-            <div class="badge badge-info">
-                {{ product.price }}€
-            </div>
+        <small class="badge badge-info">
+            {{ product.price }}€
         </small>
     </h1>
-    <p>{{ product.description }}</p>
+    <h2>{{ product.category.name }}</h2>
+    <div class="row">
+        <div class="col">
+            <img src="/img/uploads/{{ product.imageName }}" class="card-img-top"
+                 alt="Image de {{ product.name }}">
+        </div>
+        <p class="col">{{ product.description | nl2br }}</p>
+    </div>
+
+    <p>
+        Publié le {{ product.createdAt | date('d/m/Y à H:i') }}
+        , vu {{ product.nbViews }} fois
+    </p>
 {% endblock %}
