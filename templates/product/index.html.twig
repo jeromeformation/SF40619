@@ -13,8 +13,9 @@
                              alt="Image de {{ product.name }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ product.name }}</h5>
-                            <p class="card-text">{{ product.description }}</p>
-                            <a href="#" class="card-link btn btn-outline-info">Détail</a>
+                            <p class="card-text">{{ product.description | slice(0,100) }}</p>
+                            <a href="{{ path('app_product_show', {slug: product.slug}) }}"
+                               class="card-link btn btn-outline-info">Détail</a>
                         </div>
                     </div>
                 </div>

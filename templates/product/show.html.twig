@@ -3,9 +3,7 @@
 {% block body %}
     <h1>
         {{ product.name }}
-        <small class="badge badge-info">
-            {{ product.price }}€
-        </small>
+        <small class="badge badge-info">{{ product.price }}€</small>
     </h1>
     <h2>{{ product.category.name }}</h2>
     <div class="row">
@@ -18,6 +16,8 @@
 
     <p>
         Publié le {{ product.createdAt | date('d/m/Y à H:i') }}
-        , vu {{ product.nbViews }} fois
+        , vu {{ product.nbViews }} fois <br/>
+        <a href="{{ path('app_product_index') }}"
+           class="btn btn-outline-secondary">Retour à la liste</a>
     </p>
 {% endblock %}

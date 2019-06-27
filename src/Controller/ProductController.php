@@ -21,8 +21,10 @@ class ProductController extends AbstractController
         // Récupération du Repository des produits
         $repository = $this->getDoctrine()
             ->getRepository(Product::class);
-        // Récupérations de tous les produits
-        $products = $repository->findAll();
+        // Récupération de tous les produits publiés
+        $products = $repository->findBy([
+            'isPublished' => true
+        ]);
         // Renvoi des produits à la vue
         return $this->render('product/index.html.twig', [
             'products' => $products
@@ -55,8 +57,13 @@ class ProductController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Product::class);
         // Récupération du produit lié au slug de l'URL
         $product = $repository->findOneBy([
-            'slug' => $slug
+            'slug' => $slug,
+            'isPublished' => true
         ]);
+        // Si on a pas de produit -> page 404
+        if (!$product) {
+            throw $this->createNotFoundException('Produit non-trouvé !');
+        }
         // Renvoi du produit à la vue
         return $this->render('product/show.html.twig', [
             'product' => $product
