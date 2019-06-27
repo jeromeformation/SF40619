@@ -1,5 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Détail du produit</h1>
+    <h1>
+        {{ product.name }}
+        <small>
+            <div class="badge badge-info">
+                {{ product.price }}€
+            </div>
+        </small>
+    </h1>
+    <p>{{ product.description }}</p>
 {% endblock %}
