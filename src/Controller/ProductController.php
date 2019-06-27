@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +34,24 @@ class ProductController extends AbstractController
         var_dump($slug);
         dump($slug);
 
-
         return $this->render('product/show.html.twig');
+    }
+
+    /**
+     * Liste des produits
+     * @Route("/produit/liste")
+     * @return Response
+     */
+    public function index(): Response
+    {
+        // Récupération du Repository des produits
+        $repository = $this->getDoctrine()
+            ->getRepository(Product::class);
+        // Récupérations de tous les produits
+        $products = $repository->findAll();
+        // Renvoi des produits à la vue
+        return $this->render('product/index.html.twig', [
+            'products' => $products
+        ]);
     }
 }

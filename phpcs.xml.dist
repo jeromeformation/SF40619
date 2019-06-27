@@ -14,5 +14,6 @@
     <file>config/</file>
     <file>public/</file>
     <file>src/</file>
+    <exclude-pattern>src/Migrations/*</exclude-pattern>
 
 </ruleset>
