@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,13 +15,11 @@ class ProductController extends AbstractController
     /**
      * Liste des produits
      * @Route("/produit/liste")
+     * @param ProductRepository $repository
      * @return Response
      */
-    public function index(): Response
+    public function index(ProductRepository $repository): Response
     {
-        // Récupération du Repository des produits
-        $repository = $this->getDoctrine()
-            ->getRepository(Product::class);
         // Récupération de tous les produits publiés
         $products = $repository->findBy([
             'isPublished' => true
@@ -39,8 +38,18 @@ class ProductController extends AbstractController
      */
     public function create(Request $requestHTTP): Response
     {
-        // Récupération des POSTS
-        dump($requestHTTP->request);
+        // Création et remplissage du produit
+        $product = new Product();
+        $product
+            ->setName('Ventilateur')
+            ->setDescription('Pour faire du froid')
+            ->setImageName('ventilo.jpg')
+            ->setIsPublished(true)
+            ->setPrice(15.99)
+        ;
+
+        dd($product);
+        // On sauvegarde la produit en BDD grâce au manager
 
         return $this->render('product/create.html.twig');
     }
@@ -53,12 +62,14 @@ class ProductController extends AbstractController
      */
     public function show(string $slug): Response
     {
+        // Génère une erreur 500
+        //throw new \Exception('Test Erreur 500');
+
         // Récupération du repository
         $repository = $this->getDoctrine()->getRepository(Product::class);
         // Récupération du produit lié au slug de l'URL
         $product = $repository->findOneBy([
-            'slug' => $slug,
-            'isPublished' => true
+            'slug' => $slug
         ]);
         // Si on a pas de produit -> page 404
         if (!$product) {

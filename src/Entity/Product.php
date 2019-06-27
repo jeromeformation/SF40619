@@ -77,6 +77,9 @@ class Product
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+
+        $this->nbViews = 0;
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
