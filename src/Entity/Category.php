@@ -33,6 +33,17 @@ class Category
         $this->products = new ArrayCollection();
     }
 
+    /**
+     * On définie cette méthode pour afficher
+     * le nom de la catégorie dans la liste déroulante
+     * du formulaire
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -15,14 +15,17 @@
         {% include 'inc/navbar.html.twig' %}
     {% endblock %}
     <main class="container">
-        {#% for flash in session.flashes %}
-            <div class="alert alert-{{ flash.type }} alert-dismissible fade show" role="alert">
-                <strong>{{ flash.message }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        {% endfor %#}
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+                    <strong>{{ message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
         {% block body %}{% endblock %}
     </main>
     {% block footer %}Footer{% endblock %}

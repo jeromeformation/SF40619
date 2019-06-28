@@ -44,16 +44,77 @@ class ProductController extends AbstractController
         $product = new Product();
         $formProduct = $this->createForm(ProductType::class, $product);
 
-        /*
-        // On sauvegarde le produit en BDD grâce au manager
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($product);
-        $manager->flush();
-        */
+        // On envoie les données postées au formulaire
+        $formProduct->handleRequest($requestHTTP);
+
+        // On vérifie que le formulaire est soumis et valide
+        if ($formProduct->isSubmitted() && $formProduct->isValid()) {
+            // On sauvegarde le produit en BDD grâce au manager
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($product);
+            $manager->flush();
+
+            // Ajout d'un message flash
+            $this->addFlash('success', 'Le produit a bien été ajouté');
+
+            // Redirection
+            return $this->redirectToRoute('app_product_index');
+        }
 
         return $this->render('product/create.html.twig', [
             'formProduct' => $formProduct->createView()
         ]);
+    }
+
+    /**
+     * Affiche et traite le formulaire de modification d'un produit
+     * @Route("/produit/modification/{slug<[a-z0-9\-]+>}", methods={"GET", "POST"})
+     * @param Request $requestHTTP
+     * @param Product $product
+     * @return Response
+     */
+    public function update(Request $requestHTTP, Product $product): Response
+    {
+        // Récupération du formulaire
+        $formProduct = $this->createForm(ProductType::class, $product);
+
+        // On envoie les données postées au formulaire
+        $formProduct->handleRequest($requestHTTP);
+
+        // On vérifie que le formulaire est soumis et valide
+        if ($formProduct->isSubmitted() && $formProduct->isValid()) {
+            // On sauvegarde le produit en BDD grâce au manager
+            $manager = $this->getDoctrine()->getManager();
+            $manager->flush();
+
+            // Ajout d'un message flash
+            $this->addFlash('warning', 'Le produit a bien été modifié');
+
+            // Redirection
+            return $this->redirectToRoute('app_product_index');
+        }
+
+        return $this->render('product/update.html.twig', [
+            'formProduct' => $formProduct->createView()
+        ]);
+    }
+    /**
+     * Suppression d'un produit
+     * @Route("/produit/suppression/{slug<[a-z0-9\-]+>}", methods={"GET", "POST"})
+     * @param Product $product
+     * @return Response
+     */
+    public function delete(Product $product): Response
+    {
+        // On sauvegarde le produit en BDD grâce au manager
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($product);
+        $manager->flush();
+
+        // Ajout d'un message flash
+        $this->addFlash('danger', 'Le produit est supprimé');
+
+        return $this->redirectToRoute('app_product_index');
     }
 
     /**
