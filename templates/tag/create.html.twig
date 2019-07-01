@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Création d'un tag</h1>
+
+    {{ form_start(createForm) }}
+        {{ form_widget(createForm) }}
+        <input type="submit" value="Créer le tag" class="btn btn-success">
+    {{ form_end(createForm) }}
+{% endblock %}
+
