@@ -11,3 +11,6 @@ app_product_show:
     requirements:
         slug: '[a-z0-9\-]+'
     methods: ['GET']
+
+app_logout:
+    path: /logout
