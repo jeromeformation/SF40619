@@ -20,10 +20,26 @@
                 {# Le filtre "join" permet de convertir un tableau en chaîne de caractères #}
                 <td>{{ user.roles | join(', ') }}</td>
                 <td>
-                    <a href="" class="btn btn-info">Changer le rôle</a>
+                    <a href="{{ path('admin_user_changerole', {id: user.id}) }}" class="btn btn-info">Changer le rôle</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

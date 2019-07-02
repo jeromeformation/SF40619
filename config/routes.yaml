@@ -16,6 +16,6 @@ app_logout:
 
 # Gestion des routes admin pour les utilisateurs
 app_admin_user:
-    resource: routes/admin_user.yaml
+    resource: routes-perso/admin_user.yaml
     prefix: /admin/user
     name_prefix: admin_user_

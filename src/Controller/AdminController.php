@@ -42,6 +42,15 @@ class AdminController extends AbstractController
     {
         $form = $this->createForm(EditRoleUserType::class, $user);
 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->flush();
+            $this->addFlash('success', 'Rôle bien mis à jour');
+            return $this->redirectToRoute('admin_user_list');
+        }
+
+
         return $this->render('admin/user/change-role.html.twig', [
             'form' => $form->createView()
         ]);
