@@ -46,13 +46,16 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->flush();
-            $this->addFlash('success', 'Rôle bien mis à jour');
+            $this->addFlash(
+                'success',
+                'Nouveaux rôles de ' . $user->getEmail() . ' : ' . implode(', ', $user->getRoles())
+            );
             return $this->redirectToRoute('admin_user_list');
         }
 
-
         return $this->render('admin/user/change-role.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 }

@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "cocur/slugify": "^3.2",
+        "doctrine/annotations": "^1.6",
         "sensio/framework-extra-bundle": "^5.3",
         "sensiolabs/security-checker": "^6.0",
         "squizlabs/php_codesniffer": "^3.4",

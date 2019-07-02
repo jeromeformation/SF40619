@@ -6,6 +6,7 @@ use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -21,16 +22,29 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=128)
+     * @Assert\Length(
+     *     min=4,
+     *     max=128
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *     min=25,
+     *     max=4000
+     * )
      */
     private $description;
 
     /**
      * @ORM\Column(type="decimal", precision=9, scale=2)
+     * @Assert\Type(type="float")
+     * @Assert\Range(
+     *     min=0,
+     *     max=9999999.99
+     * )
      */
     private $price;
 
@@ -56,6 +70,10 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *     min=4,
+     *     max=255
+     * )
      */
     private $imageName;
 
