@@ -11,6 +11,11 @@ app_product_show:
     requirements:
         slug: '[a-z0-9\-]+'
     methods: ['GET']
-
 app_logout:
     path: /logout
+
+# Gestion des routes admin pour les utilisateurs
+app_admin_user:
+    resource: routes/admin_user.yaml
+    prefix: /admin/user
+    name_prefix: admin_user_

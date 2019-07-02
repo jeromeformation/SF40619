@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -35,6 +37,16 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Role", inversedBy="users")
+     */
+    private $rolesMTM;
+
+    public function __construct()
+    {
+        $this->rolesMTM = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -112,5 +124,35 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Role[]
+     */
+    public function getRolesMTM(): Collection
+    {
+        $roles = $this->rolesMTM;
+        $roles->add(
+            (new Role())->setLabel('Utilisateur de base')
+        );
+        return $this->rolesMTM;
+    }
+
+    public function addRolesMTM(Role $rolesMTM): self
+    {
+        if (!$this->rolesMTM->contains($rolesMTM)) {
+            $this->rolesMTM[] = $rolesMTM;
+        }
+
+        return $this;
+    }
+
+    public function removeRolesMTM(Role $rolesMTM): self
+    {
+        if ($this->rolesMTM->contains($rolesMTM)) {
+            $this->rolesMTM->removeElement($rolesMTM);
+        }
+
+        return $this;
     }
 }

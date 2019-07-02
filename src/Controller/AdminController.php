@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\EditRoleUserType;
 use App\Repository\UserRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,15 +25,25 @@ class AdminController extends AbstractController
         return $this->render('admin/index.html.twig');
     }
 
-    /**
-     * @Route("/users")
-     * @param UserRepository $repository
-     * @return Response
-     */
     public function listUser(UserRepository $repository): Response
     {
         return $this->render('admin/user/list.html.twig', [
             'users' => $repository->findAll()
+        ]);
+    }
+
+    /**
+     * @param User $user
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function changeRole(User $user, Request $request, ObjectManager $manager): Response
+    {
+        $form = $this->createForm(EditRoleUserType::class, $user);
+
+        return $this->render('admin/user/change-role.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }
