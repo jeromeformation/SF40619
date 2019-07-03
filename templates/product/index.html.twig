@@ -14,8 +14,15 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ product.name }}</h5>
                             <p class="card-text">{{ product.description | slice(0,100) }}</p>
-                            <a href="{{ path('app_product_show', {slug: product.slug}) }}"
-                               class="card-link btn btn-outline-info">Détail</a>
+
+                            <div class="btn-group">
+                                <a href="{{ path('app_product_show', {slug: product.slug}) }}" class="card-link btn btn-outline-info">Détail</a>
+                                <a href="{{ path('app_product_update', {slug: product.slug}) }}" class="card-link btn btn-outline-warning">Modifier</a>
+                                {% if is_granted('ROLE_MODERATEUR') %}
+                                    <a href="{{ path('app_product_delete', {slug: product.slug}) }}" class="card-link btn btn-outline-danger">Supprimer</a>
+                                {% endif %}
+                            </div>
+
                         </div>
                     </div>
                 </div>

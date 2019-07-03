@@ -34,7 +34,7 @@ class ProductController extends AbstractController
 
     /**
      * Affiche et traite le formulaire d'ajout d'un produit
-     * @Route("/produit/creation", methods={"GET", "POST"})
+     * @Route("/produit/gestion/creation", methods={"GET", "POST"})
      * @param Request $requestHTTP
      * @return Response
      */
@@ -68,7 +68,7 @@ class ProductController extends AbstractController
 
     /**
      * Affiche et traite le formulaire de modification d'un produit
-     * @Route("/produit/modification/{slug<[a-z0-9\-]+>}", methods={"GET", "POST"})
+     * @Route("/produit/gestion/modification/{slug<[a-z0-9\-]+>}", methods={"GET", "POST"})
      * @param Request $requestHTTP
      * @param Product $product
      * @return Response
@@ -98,6 +98,7 @@ class ProductController extends AbstractController
             'formProduct' => $formProduct->createView()
         ]);
     }
+
     /**
      * Suppression d'un produit
      * @Route("/produit/suppression/{slug<[a-z0-9\-]+>}", methods={"GET", "POST"})
