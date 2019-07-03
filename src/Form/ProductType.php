@@ -14,7 +14,8 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name', null, [
-                'label' => 'Nom'
+                'label' => 'Nom',
+                'help' => "Min : 4 caractères"
             ])
             ->add('description')
             ->add('price', null, [
