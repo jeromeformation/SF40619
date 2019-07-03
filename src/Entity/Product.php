@@ -107,6 +107,11 @@ class Product
         $this->createdAt = new \DateTime();
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     /**
      * Met à jour le slug par rapport au name
      * @return Product
