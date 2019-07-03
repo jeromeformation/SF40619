@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class ProductController extends AbstractController
 {
@@ -36,9 +37,10 @@ class ProductController extends AbstractController
      * Affiche et traite le formulaire d'ajout d'un produit
      * @Route("/produit/gestion/creation", methods={"GET", "POST"})
      * @param Request $requestHTTP
+     * @param UserInterface $user
      * @return Response
      */
-    public function create(Request $requestHTTP): Response
+    public function create(Request $requestHTTP, UserInterface $user): Response
     {
         // Récupération du formulaire
         $product = new Product();
@@ -49,6 +51,8 @@ class ProductController extends AbstractController
 
         // On vérifie que le formulaire est soumis et valide
         if ($formProduct->isSubmitted() && $formProduct->isValid()) {
+            // On attribue l'utilisateur connecté en tant que publicateur de ce nouvel article
+            $product->setPublisher($user);
             // On sauvegarde le produit en BDD grâce au manager
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($product);
@@ -71,10 +75,16 @@ class ProductController extends AbstractController
      * @Route("/produit/gestion/modification/{slug<[a-z0-9\-]+>}", methods={"GET", "POST"})
      * @param Request $requestHTTP
      * @param Product $product
+     * @param UserInterface $user
      * @return Response
      */
-    public function update(Request $requestHTTP, Product $product): Response
+    public function update(Request $requestHTTP, Product $product, UserInterface $user): Response
     {
+        if ($product->getPublisher() !== $user && !$this->isGranted('ROLE_ADMIN')) {
+            $message = "L'utilisateur courant n'est pas le publication du produit, il ne peut modifier ce produit";
+            throw $this->createAccessDeniedException($message);
+        }
+
         // Récupération du formulaire
         $formProduct = $this->createForm(ProductType::class, $product);
 
@@ -157,8 +167,7 @@ class ProductController extends AbstractController
         // Récupération d'une catégorie
         $category = $this->getDoctrine()
             ->getRepository(Category::class)
-            ->find(1)
-        ;
+            ->find(1);
 
         // Création et remplissage du produit
         $product = new Product();
@@ -168,8 +177,7 @@ class ProductController extends AbstractController
             ->setImageName('ventilo.jpg')
             ->setIsPublished(true)
             ->setPrice(15.99)
-            ->setCategory($category)
-        ;
+            ->setCategory($category);
 
         dump($product);
 

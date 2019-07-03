@@ -43,9 +43,15 @@ class User implements UserInterface
      */
     private $rolesMTM;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="publisher")
+     */
+    private $products;
+
     public function __construct()
     {
         $this->rolesMTM = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -151,6 +157,37 @@ class User implements UserInterface
     {
         if ($this->rolesMTM->contains($rolesMTM)) {
             $this->rolesMTM->removeElement($rolesMTM);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setPublisher($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+            // set the owning side to null (unless already changed)
+            if ($product->getPublisher() === $this) {
+                $product->setPublisher(null);
+            }
         }
 
         return $this;
