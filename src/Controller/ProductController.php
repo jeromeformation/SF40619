@@ -6,6 +6,8 @@ use App\Entity\Category;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -112,6 +114,7 @@ class ProductController extends AbstractController
     /**
      * Suppression d'un produit
      * @Route("/produit/suppression/{slug<[a-z0-9\-]+>}", methods={"GET", "POST"})
+     * @IsGranted("ROLE_MODERATEUR")
      * @param Product $product
      * @return Response
      */

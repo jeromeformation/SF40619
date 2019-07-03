@@ -21,6 +21,10 @@ security:
             guard:
                 authenticators:
                     - App\Security\AppAuthAuthenticator
+            remember_me:
+                secret:   '%kernel.secret%'
+                # 24h
+                lifetime: 86400
 
     # Hiérarchie des rôles
     role_hierarchy:
@@ -31,7 +35,7 @@ security:
     # Définition des droits d'accès
     access_control:
         - { path: ^/produit/gestion, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/produit/suppression, roles: ROLE_MODERATEUR}
+        #- { path: ^/produit/suppression, roles: ROLE_MODERATEUR}
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
 
