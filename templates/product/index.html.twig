@@ -18,7 +18,7 @@
 
                             <div class="btn-group">
                                 <a href="{{ path('app_product_show', {slug: product.slug}) }}" class="card-link btn btn-outline-info">Détail</a>
-                                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                {% if app.user == product.publisher or is_granted('ROLE_ADMIN')  %}
                                     <a href="{{ path('app_product_update', {slug: product.slug}) }}" class="card-link btn btn-outline-warning">Modifier</a>
                                 {% endif %}
                                 {% if is_granted('ROLE_MODERATEUR') %}
