@@ -21,7 +21,10 @@ class ProductType extends AbstractType
             ])
             ->add('description')
             ->add('price', null, [
-                'label' => 'Prix'
+                'label' => 'Prix',
+                'attr' => [
+                    'class' => 'bg-info'
+                ]
             ])
             ->add('isPublished', null, [
                 'label' => 'Le produit doit-il être publié ?',

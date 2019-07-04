@@ -39,7 +39,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Role", inversedBy="users")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Role", inversedBy="users", cascade={"persist"})
      */
     private $rolesMTM;
 
@@ -56,7 +56,7 @@ class User implements UserInterface
 
     public function __toString()
     {
-        return $this->email;
+        return $this->email ?? 'empty email';
     }
 
     public function getId(): ?int

@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Product
 {
@@ -104,7 +105,6 @@ class Product
         $this->tags = new ArrayCollection();
 
         $this->nbViews = 0;
-        $this->createdAt = new \DateTime();
     }
 
     public function __toString()
@@ -127,6 +127,22 @@ class Product
 
         // Pour le chainage
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function initCreatedAt()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function refreshUpdatedAt()
+    {
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int
