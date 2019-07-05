@@ -8,10 +8,10 @@
     <h2>{{ product.category.name }}</h2>
     <div class="row">
         <div class="col">
-            <img src="/img/uploads/{{ product.imageName }}" class="card-img-top"
+            <img src="{{ vich_uploader_asset(product, 'imageFile') }}" class="card-img-top"
                  alt="Image de {{ product.name }}">
         </div>
-        <p class="col">{{ product.description | nl2br }}</p>
+        <p class="col">{{ product.description | raw('html') }}</p>
     </div>
 
     <p>

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Product;
 use App\Entity\Tag;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -20,7 +21,7 @@ class ProductType extends AbstractType
                 'label' => 'Nom',
                 'help' => "Min : 4 caractères"
             ])
-            ->add('description')
+            ->add('description', CKEditorType::class)
             ->add('price', null, [
                 'label' => 'Prix',
                 'attr' => [

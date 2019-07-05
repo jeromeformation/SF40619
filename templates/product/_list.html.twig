@@ -6,7 +6,7 @@
                      alt="Image de {{ product.name }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">{{ product.description | slice(0,100) }}</p>
+                    <p class="card-text">{{ product.description | slice(0,100) | raw('html') }}</p>
                     <p class="text-muted">Publié par {{ product.publisher.email }}</p>
 
                     <div class="btn-group">
