@@ -3,9 +3,13 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -143,7 +147,8 @@ class Product
      */
     public function initCreatedAt()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new DateTime();
+        $this->updateSlug();
     }
 
     /**
@@ -151,7 +156,7 @@ class Product
      */
     public function refreshUpdatedAt()
     {
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new DateTime();
     }
 
     public function getId(): ?int
@@ -209,24 +214,24 @@ class Product
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -329,12 +334,12 @@ class Product
 
     /**
      * @param File $imageFile
-     * @throws \Exception
+     * @throws Exception
      */
     public function setImageFile(?File $imageFile = null): void
     {
         if (!is_null($imageFile)) {
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->updatedAt = new DateTimeImmutable();
         }
         $this->imageFile = $imageFile;
     }

@@ -1,0 +1,26 @@
+<section class="row">
+    {% for product in products %}
+        <div class="col-4">
+            <div class="card">
+                <img src="{{ vich_uploader_asset(product, 'imageFile') }}" class="card-img-top"
+                     alt="Image de {{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description | slice(0,100) }}</p>
+                    <p class="text-muted">Publié par {{ product.publisher.email }}</p>
+
+                    <div class="btn-group">
+                        <a href="{{ path('app_product_show', {slug: product.slug}) }}" class="card-link btn btn-outline-info">Détail</a>
+                        {% if app.user == product.publisher or is_granted('ROLE_ADMIN')  %}
+                            <a href="{{ path('app_product_update', {slug: product.slug}) }}" class="card-link btn btn-outline-warning">Modifier</a>
+                        {% endif %}
+                        {% if is_granted('ROLE_MODERATEUR') %}
+                            <a href="{{ path('app_product_delete', {slug: product.slug}) }}" class="card-link btn btn-outline-danger">Supprimer</a>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</section>

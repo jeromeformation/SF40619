@@ -2,4 +2,11 @@
 
 {% block body %}
     <h1>Page d'accueil</h1>
+
+    {% include 'product/_list.html.twig' with {products : paginatedResults} %}
+
+    <div class="navigation">
+        {{ knp_pagination_render(paginatedResults) }}
+    </div>
+
 {% endblock %}
