@@ -6,9 +6,8 @@
     <h1>Inscription</h1>
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
+        {{ form_widget(registrationForm) }}
 
-        <button class="btn">S'inscrire</button>
+        <button class="btn btn-primary">S'inscrire</button>
     {{ form_end(registrationForm) }}
 {% endblock %}

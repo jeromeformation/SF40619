@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,6 +16,8 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('firstName')
+            ->add('lastName')
             ->add('email')
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
@@ -31,6 +34,15 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+            ])
+            ->add('rolesFalse', ChoiceType::class, [
+                'choices' => [
+                    'Client' => 'ROLE_CLIENT',
+                    'Administrateur' => 'ROLE_ADMIN'
+                ],
+                'multiple' => false,
+                'expanded' => true,
+                'mapped' => false
             ])
         ;
     }

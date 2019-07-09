@@ -20,3 +20,10 @@ easy_admin:
             class: App\Entity\User
         Tag:
           class: App\Entity\Tag
+    design:
+        menu:
+            - { entity: 'Product' }
+            - { entity: 'User' }
+            - { entity: 'Category' }
+            - { entity: 'Tag' }
+            - { label: 'Newsletter', route: 'newsletter_index' }
