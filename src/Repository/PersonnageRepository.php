@@ -19,6 +19,38 @@ class PersonnageRepository extends ServiceEntityRepository
         parent::__construct($registry, Personnage::class);
     }
 
+    /**
+     * SELECT * FROM personnage AS p
+     * @param array $liens
+     * @return array|null
+     */
+    public function findAllByLiens(array $liens): ?array
+    {
+       /* $query = $this->createQueryBuilder('p')
+            ->select('p.id')
+            ->join('p.liens', 'l');
+
+        $tabIds = [];
+
+        foreach ($liens as $lien) {
+            $tabIds[] = $query->where('l.id = :lien')
+                ->setParameter('lien', $lien)
+                ->getQuery()
+                ->getArrayResult();
+        }
+
+        foreach ($tabIds as $key => $ids) {
+            if($key !== 0) {
+                foreach ($ids as $id) {
+                    if (in_array($id['id'], $tabIds[$key-1]) {
+
+                    }
+                }
+            }
+        }
+        dd($ids);*/
+    }
+
     // /**
     //  * @return Personnage[] Returns an array of Personnage objects
     //  */

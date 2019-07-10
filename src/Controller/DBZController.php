@@ -36,8 +36,8 @@ class DBZController extends AbstractController
                 unset($posts['y']);
             }
 
-            $persos = $personnageRepository->findAll();
-            $persosOk = [];
+            $persos = $personnageRepository->findAllByLiens($posts);
+            /*$persosOk = [];
 
             foreach ($persos as $perso) {
                 $liens = $perso->getLiens();
@@ -48,7 +48,7 @@ class DBZController extends AbstractController
                     $persosOk[] = $perso;
                 }
             }
-            dd($persosOk);
+            dd($persosOk);*/
         }
 
 

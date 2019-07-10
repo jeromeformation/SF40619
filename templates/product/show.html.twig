@@ -12,6 +12,16 @@
                  alt="Image de {{ product.name }}">
         </div>
         <p class="col">{{ product.description | raw('html') }}</p>
+
+        <form method="post" action="{{ path('app_basket_add') }}">
+            <input type="hidden" name="id" value="{{ product.id }}" />
+            <input type="hidden" name="name" value="{{ product.name }}" />
+            <div class="form-group">
+                <label for="quantity">Quantité :</label>
+                <input type="number" name="quantity" id="quantity" class="form-control" value="1">
+            </div>
+            <input type="submit" value="Ajouter au panier" class="btn btn-outline-success">
+        </form>
     </div>
 
     <p>

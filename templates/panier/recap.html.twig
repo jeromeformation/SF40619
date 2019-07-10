@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Votre panier</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Quantité</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in app.session.get('panier') %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.quantity }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Rien dans la panier</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('category_new') }}">Create new</a>
+{% endblock %}
