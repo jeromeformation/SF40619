@@ -2,8 +2,11 @@
     {% for product in products %}
         <div class="col-4">
             <div class="card">
-                <img src="{{ vich_uploader_asset(product, 'imageFile') }}" class="card-img-top"
-                     alt="Image de {{ product.name }}">
+                {% set image = product.images.first() | default({imageFile: null, imageName: 'test.png', imageAlt: 'Default'}) %}
+
+                {#<img src="{{ vich_uploader_asset(product, 'imageFile') }}" class="card-img-top" alt="Image de {{ product.name }}">#}
+                <img src="{{ vich_uploader_asset(image, 'imageFile', 'App\\Entity\\Image') }}" class="card-img-top"
+                     alt="Image de {{ image.imageAlt }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text">{{ product.description | slice(0,100) | raw('html') }}</p>
