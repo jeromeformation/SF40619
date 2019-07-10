@@ -26,6 +26,18 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/admins", name="user_index", methods={"GET"})
+     * @param UserRepository $userRepository
+     * @return Response
+     */
+    public function admin(UserRepository $userRepository): Response
+    {
+        return $this->render('user/index.html.twig', [
+            'users' => $userRepository->findAllByRole('ROLE_ADMIN'),
+        ]);
+    }
+
+    /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response

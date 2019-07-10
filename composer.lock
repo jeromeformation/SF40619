@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "03c436b57aea02d37cb3d014ee2624e1",
+    "content-hash": "bea34b28668ebe6db420386343dc35ce",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2161,6 +2161,64 @@
                 "psr-3"
             ],
             "time": "2018-11-20T15:27:04+00:00"
+        },
+        {
+            "name": "scienta/doctrine-json-functions",
+            "version": "4.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ScientaNL/DoctrineJsonFunctions.git",
+                "reference": "f8e2247c0d8afbe434636e87028372f1aaea53f1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ScientaNL/DoctrineJsonFunctions/zipball/f8e2247c0d8afbe434636e87028372f1aaea53f1",
+                "reference": "f8e2247c0d8afbe434636e87028372f1aaea53f1",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^5.0",
+                "doctrine/orm": "~2.6",
+                "phpunit/phpunit": "^6.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Scienta\\DoctrineJsonFunctions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Doctrine Json Functions Contributors",
+                    "homepage": "https://github.com/ScientaNL/DoctrineJsonFunctions/contributors"
+                }
+            ],
+            "description": "A set of extensions to Doctrine 2 that add support for json query functions.",
+            "keywords": [
+                "database",
+                "doctrine",
+                "dql",
+                "json",
+                "mariadb",
+                "mysql",
+                "orm",
+                "postgres",
+                "postgresql"
+            ],
+            "time": "2019-03-12T08:52:10+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",

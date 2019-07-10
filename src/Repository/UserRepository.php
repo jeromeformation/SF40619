@@ -39,6 +39,23 @@ class UserRepository extends ServiceEntityRepository
         return $mails;
     }
 
+    /**
+     * SELECT * FROM app_user AS u
+     * @param string $role
+     * @return array|null
+     */
+    public function findAllByRole(string $role): ?array
+    {
+        $results = $this->createQueryBuilder('u')
+            ->where("JSON_SEARCH(u.roles, 'one', :role, '\', '$') IS NOT NULL")
+            ->setParameter('role', $role)
+            ->getQuery()
+            ->getResult();
+
+        dump($results);
+        return $results;
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

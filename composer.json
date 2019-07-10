@@ -10,6 +10,7 @@
         "easycorp/easyadmin-bundle": "^2.2",
         "friendsofsymfony/ckeditor-bundle": "^2.1",
         "knplabs/knp-paginator-bundle": "^4.0",
+        "scienta/doctrine-json-functions": "^4.0",
         "sensio/framework-extra-bundle": "^5.3",
         "sensiolabs/security-checker": "^6.0",
         "squizlabs/php_codesniffer": "^3.4",
