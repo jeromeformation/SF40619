@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\RegistrationFormType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Query;
 use Knp\Component\Pager\PaginatorInterface;
@@ -8,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class HomeController extends AbstractController
 {
@@ -49,4 +52,61 @@ class HomeController extends AbstractController
     {
         return $this->render('contact.html.twig');
     }
+
+    /**
+     * @Route("/choice")
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response
+     */
+    public function choice(AuthenticationUtils $authenticationUtils): Response
+    {
+        // Inscription
+        $user = new User();
+        $form = $this->createForm(RegistrationFormType::class, $user);
+
+        // Connexion
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        // Vue
+        return $this->render('choice.html.twig', [
+            'registrationForm' => $form->createView(),
+            'last_username' => $lastUsername,
+            'error' => $error
+        ]);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
