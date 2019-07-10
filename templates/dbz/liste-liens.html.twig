@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Choisissez les liens de ki</h1>
+
+    <form method="post">
+        {% for lien in liens %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="{{ lien.id }}" value="{{ lien.id }}" id="{{ lien.id }}" />
+                <label class="form-check-label" for="{{ lien.id }}">
+                    {{ lien.name }}
+                </label>
+            </div>
+        {% endfor %}
+        <input type="image" src="{{ asset('img/dbz/') }}1200px-Dragon_ball.svg.png" style="max-width: 64px;" value="Chercher les personnages" class="btn btn-outline-dark">
+    </form>
+{% endblock %}
