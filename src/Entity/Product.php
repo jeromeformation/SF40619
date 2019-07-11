@@ -118,12 +118,18 @@ class Product
      */
     private $images;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CommandeProduit", mappedBy="product")
+     */
+    private $commandeProduits;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
 
         $this->nbViews = 0;
         $this->images = new ArrayCollection();
+        $this->commandeProduits = new ArrayCollection();
     }
 
     public function __toString()
@@ -375,6 +381,37 @@ class Product
             // set the owning side to null (unless already changed)
             if ($image->getProduct() === $this) {
                 $image->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CommandeProduit[]
+     */
+    public function getCommandeProduits(): Collection
+    {
+        return $this->commandeProduits;
+    }
+
+    public function addCommandeProduit(CommandeProduit $commandeProduit): self
+    {
+        if (!$this->commandeProduits->contains($commandeProduit)) {
+            $this->commandeProduits[] = $commandeProduit;
+            $commandeProduit->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommandeProduit(CommandeProduit $commandeProduit): self
+    {
+        if ($this->commandeProduits->contains($commandeProduit)) {
+            $this->commandeProduits->removeElement($commandeProduit);
+            // set the owning side to null (unless already changed)
+            if ($commandeProduit->getProduct() === $this) {
+                $commandeProduit->setProduct(null);
             }
         }
 

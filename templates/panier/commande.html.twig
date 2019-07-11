@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Récapitulatif de votre commande</h1>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Prix unitaire</th>
+            <th>Quantité</th>
+            <th>Sous-total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for element in commande.commandeProduits %}
+            <tr>
+                <td>{{ element.product.name }}</td>
+                <td>{{ element.product.price }}€</td>
+                <td>{{ element.quantity }}</td>
+                <td>{{ element.product.price * element.quantity }}€</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Rien dans le panier</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">Total de la commande : {{ commande.totalPrice }}€</td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}
+
