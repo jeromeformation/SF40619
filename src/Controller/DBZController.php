@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Lien;
 use App\Repository\LienRepository;
-use App\Repository\PersonnageRepository;
+use App\Repository\todoPersonnageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,18 +13,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class DBZController extends AbstractController
 {
     /**
-     * @Route("/dbz/liste-liens")
+     * @Route("/dbz/liste-liens", name="dbz_liste_liens")
      * @param LienRepository $lienRepository
      * @param Request $request
-     * @param PersonnageRepository $personnageRepository
+     * @param todoPersonnageRepository $personnageRepository
      * @return Response
      */
     public function listeLiens(
         LienRepository $lienRepository,
         Request $request,
-        PersonnageRepository $personnageRepository
-    ): Response
-    {
+        todoPersonnageRepository $personnageRepository
+    ): Response {
+        // Récupération des persos
         if ($request->isMethod('post')) {
             $posts = $request->request->all();
 
@@ -36,8 +36,8 @@ class DBZController extends AbstractController
                 unset($posts['y']);
             }
 
-            $persos = $personnageRepository->findAllByLiens($posts);
-            /*$persosOk = [];
+            $persos = $personnageRepository->findAll();
+            $persosOk = [];
 
             foreach ($persos as $perso) {
                 $liens = $perso->getLiens();
@@ -48,12 +48,23 @@ class DBZController extends AbstractController
                     $persosOk[] = $perso;
                 }
             }
-            dd($persosOk);*/
         }
 
+        // Tri des persos
+        $filter = $request->query->get('filter', 'name');
+
+        if ($filter === 'ki') {
+            $orderBy = [
+                'ki' => 'ASC',
+                'name' => 'ASC'
+            ];
+        } else {
+            $orderBy = ['name' => 'ASC'];
+        }
 
         return $this->render('dbz/liste-liens.html.twig', [
-            'liens' => $lienRepository->findAll()
+            'liens' => $lienRepository->findBy([], $orderBy),
+            'persos' => $persosOk ?? []
         ]);
     }
 

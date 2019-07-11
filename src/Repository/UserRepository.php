@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\FetchMode;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -22,21 +23,17 @@ class UserRepository extends ServiceEntityRepository
     /**
      * Liste les différents mails des utilisateurs
      * @return array
+     * @throws \Doctrine\DBAL\DBALException
      */
     public function findAllEmails(): array
     {
-        $userEmails = $this->createQueryBuilder('u')
-            ->select('u.email')
+        $conn = $this->getEntityManager()->getConnection();
 
-            ->getQuery()
-            ->getResult()
-        ;
+        $sql = 'SELECT email FROM app_user';
+        $stmt = $conn->query($sql);
 
-        $mails = [];
-        foreach ($userEmails as $userEmail) {
-            $mails[] = $userEmail['email'];
-        }
-        return $mails;
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll(FetchMode::COLUMN);
     }
 
     /**

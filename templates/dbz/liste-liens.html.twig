@@ -3,15 +3,27 @@
 {% block body %}
     <h1>Choisissez les liens de ki</h1>
 
+    <div class="row">
+        <a href="{{ path('dbz_liste_liens') }}?filter=name" class="btn btn-outline-info">Trier par nom</a>
+        <a href="{{ path('dbz_liste_liens') }}?filter=ki" class="btn btn-outline-info">Trier par ki</a>
+    </div>
+
+
     <form method="post">
         {% for lien in liens %}
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="{{ lien.id }}" value="{{ lien.id }}" id="{{ lien.id }}" />
                 <label class="form-check-label" for="{{ lien.id }}">
-                    {{ lien.name }}
+                    {{ lien.name }} ({{ lien.ki }})
                 </label>
             </div>
         {% endfor %}
         <input type="image" src="{{ asset('img/dbz/') }}1200px-Dragon_ball.svg.png" style="max-width: 64px;" value="Chercher les personnages" class="btn btn-outline-dark">
     </form>
+
+
+    {% for perso in persos %}
+        <input type="image" src="/img/dbz/{{ perso.imageName }}" style="max-width: 64px;" value="Chercher les personnages" class="btn btn-outline-dark">
+
+    {% endfor %}
 {% endblock %}
