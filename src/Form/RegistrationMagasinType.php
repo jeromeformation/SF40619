@@ -2,19 +2,22 @@
 
 namespace App\Form;
 
-use App\Entity\Magasin;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
 
-class MagasinRegisterType extends AbstractType
+class RegistrationMagasinType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('firstName')
+            ->add('lastName')
             ->add('email')
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
@@ -32,13 +35,23 @@ class MagasinRegisterType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('rolesFalse', ChoiceType::class, [
+                'choices' => [
+                    'Client' => 'ROLE_CLIENT',
+                    'Administrateur' => 'ROLE_ADMIN'
+                ],
+                'multiple' => false,
+                'expanded' => true,
+                'mapped' => false
+            ])
+            ->add('magasin', MagasinType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Magasin::class,
+            'data_class' => User::class,
         ]);
     }
 }

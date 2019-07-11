@@ -3,12 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
  */
-class Client implements UserInterface
+class Client
 {
     /**
      * @ORM\Id()
@@ -18,96 +17,98 @@ class Client implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $email;
+    private $nom;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="string", length=255)
      */
-    private $roles = [];
+    private $prenom;
 
     /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
-    private $password;
+    private $ville;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $projet;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="client", cascade={"persist", "remove"})
+     */
+    private $user;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getEmail(): ?string
+    public function getNom(): ?string
     {
-        return $this->email;
+        return $this->nom;
     }
 
-    public function setEmail(string $email): self
+    public function setNom(string $nom): self
     {
-        $this->email = $email;
+        $this->nom = $nom;
 
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
+    public function getPrenom(): ?string
     {
-        return (string) $this->email;
+        return $this->prenom;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
+    public function setPrenom(string $prenom): self
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
+        $this->prenom = $prenom;
 
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
+    public function getVille(): ?string
     {
-        return (string) $this->password;
+        return $this->ville;
     }
 
-    public function setPassword(string $password): self
+    public function setVille(string $ville): self
     {
-        $this->password = $password;
+        $this->ville = $ville;
 
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getSalt()
+    public function getProjet(): ?string
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
+        return $this->projet;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials()
+    public function setProjet(string $projet): self
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->projet = $projet;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newClient = $user === null ? null : $this;
+        if ($newClient !== $user->getClient()) {
+            $user->setClient($newClient);
+        }
+
+        return $this;
     }
 }

@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\RegistrationFormType;
+use App\Form\RegistrationClientType;
+use App\Form\RegistrationMagasinType;
 use App\Security\AppAuthAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +30,7 @@ class RegistrationController extends AbstractController
         AppAuthAuthenticator $authenticator
     ): Response {
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationMagasinType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -68,4 +69,38 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/register/client", name="register_client")
+     * @param Request $request
+     * @return Response
+     */
+    public function registerClient(Request $request): Response
+    {
+        $user = new User();
+        $form = $this->createForm(RegistrationClientType::class, $user);
+
+        // Traitement du formulaire
+
+        return $this->render('registration/register-client.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

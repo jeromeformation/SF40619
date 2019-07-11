@@ -58,6 +58,17 @@ class User implements UserInterface
      */
     private $lastName;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Client", inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $client;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Magasin", inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $magasin;
+
+
     public function __construct()
     {
         $this->rolesMTM = new ArrayCollection();
@@ -228,6 +239,30 @@ class User implements UserInterface
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    public function getMagasin(): ?Magasin
+    {
+        return $this->magasin;
+    }
+
+    public function setMagasin(?Magasin $magasin): self
+    {
+        $this->magasin = $magasin;
 
         return $this;
     }

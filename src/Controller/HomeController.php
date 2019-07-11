@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\RegistrationFormType;
+use App\Form\RegistrationMagasinType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Query;
 use Knp\Component\Pager\PaginatorInterface;
@@ -62,7 +62,7 @@ class HomeController extends AbstractController
     {
         // Inscription
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationMagasinType::class, $user);
 
         // Connexion
         // get the login error if there is one
