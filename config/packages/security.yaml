@@ -2,6 +2,9 @@ security:
     encoders:
         App\Entity\User:
             algorithm: argon2i
+        App\Entity\Professionnel:
+            algorithm: argon2i
+
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -10,11 +13,17 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+        app_pro_provider:
+            entity:
+                class: App\Entity\Professionnel
+                property: email
+        # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            provider: app_user_provider
             logout:
                 path: app_logout
             anonymous: true

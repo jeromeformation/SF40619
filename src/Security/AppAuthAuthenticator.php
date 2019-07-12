@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\Professionnel;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -68,7 +69,9 @@ class AppAuthAuthenticator extends AbstractFormLoginAuthenticator
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
+        $user1 = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
+        $user2 = $this->entityManager->getRepository(Professionnel::class)->findOneBy(['email' => $credentials['email']]);
+        $user = $user1 ?? $user2;
 
         if (!$user) {
             // fail authentication with a custom error

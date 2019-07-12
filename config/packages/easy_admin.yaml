@@ -18,6 +18,12 @@ easy_admin:
           class: App\Entity\Category
         User:
             class: App\Entity\User
+            form:
+                fields:
+                    - email
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: {'Administrateur':'ROLE_ADMIN','Modérateur':'ROLE_MODERATEUR'} } }
+                    - firstName
+                    - lastName
         Tag:
           class: App\Entity\Tag
     design:
